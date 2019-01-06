@@ -22,9 +22,9 @@ CREATE TABLE IF NOT EXISTS `shelters` (
     `size` VARCHAR(70) DEFAULT NULL,
   `description_id` bigint(20) DEFAULT NULL,
   `sex` VARCHAR(1) default NULL,
-  `shelter_id` bigint(20) default NULL,status varchar(70) default null,
+  `shelter_id` bigint(20) default NULL,
+  status varchar(70) default null,
   `type_animal` ENUM('BARNYARD','BIRD','CAT','DOG','HORSE','REPTILE','SMALLFURRY') DEFAULT NULL,
-	FOREIGN KEY (breed_id) REFERENCES breeds(id),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=UTF8;
 
