@@ -33,6 +33,16 @@ public class PetController {
 		return new Result(pet);
 	}
 	
+	@RequestMapping(value = "/pet.find", method = RequestMethod.GET)
+	public Result getPetRandom(HttpSession session, @RequestParam(required = true) String key) {
+		List<PetDto> pets = this.petService.getAllPets();
+//		PetDto frontEnd=this.petService.createObjectForFrontend(pet);
+		Gson gson = new Gson();
+		String json = gson.toJson(pets); // convert
+		System.out.println(json);
+		return new Result(pets);
+	}
+	
 	@RequestMapping(value = "/pet.create", method = RequestMethod.POST)
 	public Result createPet(@RequestBody PetBindingModel petBindingModel, HttpSession session, @RequestParam(required = true) String key	) {
 		PetDto pet = this.petService.createPet(petBindingModel);
@@ -41,7 +51,5 @@ public class PetController {
 		System.out.println(json);
 		return new Result(pet);
 	}
-	
-	
 
 }
