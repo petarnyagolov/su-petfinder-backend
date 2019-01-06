@@ -1,27 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.petfinder.backend.repositories.ShelterRepository">
+<mapper
+	namespace="com.petfinder.backend.repositories.ShelterRepository">
 
 
-
-
-	<!-- <select id="findOneWebinarHashByEmailAndWebinar" resultType="String">
-		select uh.user_hash from admins_webinars_hashes as awh inner join
-		user_hashes as uh on(uh.id=awh.user_hash_id) inner join admins as a on
-		(a.id=awh.admin_id) where a.email= #{email} and awh.webinar_id=
-		#{webinarId}
-	</select>
-	
-	<resultMap type="Admin" id="Admin">
-		<id column="id" property="id" />
-		<result column="name" property="name" />
-		<result column="family" property="family" />
-		<result column="email" property="email" />
+	<resultMap type="Shelter" id="shelter">
+		<id column="shelterId" property="id" />
+		<result column="shelterName" property="name" />
+		<association property="contact" javaType="Contact">
+			<id column="contactId" property="id" />
+			<result column="city" property="city" />
+			<result column="phone" property="phone" />
+			<result column="address1" property="address1" />
+			<result column="email" property="email" />
+			<result column="state" property="state" />
+			<result column="zip" property="zip" />
+		</association>
 	</resultMap>
-	
-	<select id="findOneByEmail" resultMap="Admin">
-		select  * from admins as a where a.email=  #{email} 
-	</select> -->
+
+	<select id="getAllSheltersByLocation" resultMap="shelter">
+		select s.id AS
+		shelterId,s.`name` AS shelterName,s.contact_id AS contactId,c.phone AS
+		phone,c.state AS state,c.address1 AS address1,c.email AS email,c.city
+		AS city,c.zip AS zip from shelters as
+		s inner JOIN contacts AS c ON
+		(c.id=s.contact_id) WHERE 1=1 AND
+		(c.state=#{location} or
+		c.address1=#{location} or c.city=#{location}
+		or c.zip=#{location})
+	</select>
+
+	<select id="getShelterById" resultMap="shelter">
+		select s.id AS
+		shelterId,s.`name` AS shelterName,s.contact_id AS contactId,c.phone AS
+		phone,c.state AS state,c.address1 AS address1,c.email AS email,c.city
+		AS city,c.zip AS zip from shelters as
+		s inner JOIN contacts AS c ON
+		(c.id=s.contact_id) WHERE 1=1 AND
+		s.id=#{id}
+	</select>
+
+
+	<select id="getSheltersByBreed" resultMap="shelter">
+		select s.id AS
+		shelterId,s.`name` AS shelterName,s.contact_id AS contactId,c.phone AS
+		phone,c.state AS state,c.address1 AS address1,c.email AS email,c.city
+		AS city,c.zip AS zip from shelters as
+		s inner JOIN contacts AS c ON
+		(c.id=s.contact_id) INNER JOIN pets AS p ON (p.shelter_id=s.id)INNER
+		JOIN pets_breeds AS pb ON (pb.pet_id=p.id) INNER JOIN breeds AS b ON
+		(b.id=pb.breed_id) WHERE 1=1 AND b.breed=#{breed} and
+		p.animal=#{animal}
+	</select>
 </mapper>
 
 

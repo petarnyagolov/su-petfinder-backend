@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.petfinder.backend.entities.Pet;
+import com.petfinder.backend.entities.Shelter;
 import com.petfinder.backend.models.PetBindingModel;
 import com.petfinder.backend.models.PetDto;
 import com.petfinder.backend.repositories.PetRepository;
@@ -29,9 +30,22 @@ public class PetServiceImpl implements PetService {
 
 	@Override
 	public PetDto createPet(PetBindingModel petBindingModel) {
-		// TODO Auto-generated method stub
-		return null;
+		PetDto pet =this.petRepository.createPet(petBindingModel);
+		return pet;
 	}
+
+	@Override
+	public List<PetDto> getAllPetsByShelterId(Long id) {
+		 List<PetDto> pets=this.petRepository.findAllPetsByShelterId(id);
+		return pets;
+	}
+
+	@Override
+	public PetDto getOneRandomPet() {
+		PetDto petDto= this.petRepository.findOneRandomPet();
+		return petDto;
+	}
+
 
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,8 +34,19 @@ public class PetController {
 		return new Result(pet);
 	}
 	
-	@RequestMapping(value = "/pet.find", method = RequestMethod.GET)
+	
+	@RequestMapping(value = "/pet.getRandom", method = RequestMethod.GET)
 	public Result getPetRandom(HttpSession session, @RequestParam(required = true) String key) {
+		PetDto pet = this.petService.getOneRandomPet();
+//		PetDto frontEnd=this.petService.createObjectForFrontend(pet);
+		Gson gson = new Gson();
+		String json = gson.toJson(pet); // convert
+		System.out.println(json);
+		return new Result(pet);
+	}
+	
+	@RequestMapping(value = "/pet.find", method = RequestMethod.GET)
+	public Result findPet(HttpSession session, @RequestParam(required = true) String key) {
 		List<PetDto> pets = this.petService.getAllPets();
 //		PetDto frontEnd=this.petService.createObjectForFrontend(pet);
 		Gson gson = new Gson();
@@ -51,5 +63,6 @@ public class PetController {
 		System.out.println(json);
 		return new Result(pet);
 	}
+	
 
 }

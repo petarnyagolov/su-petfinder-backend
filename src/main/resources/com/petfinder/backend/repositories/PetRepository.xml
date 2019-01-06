@@ -61,7 +61,7 @@ SELECT p.id AS petId
 	,p.sex AS petSex
 	,d.description AS petDescription
 	,p.`status` AS petStatus
-	, p.type_animal AS typeAnimal
+	, p.animal AS typeAnimal
 	,s.id AS shelterId
 	,s.`name` AS shelterName
 	, c.phone AS contactPhone
@@ -96,7 +96,7 @@ SELECT p.id AS petId
 	,p.sex AS petSex
 	,d.description AS petDescription
 	,p.`status` AS petStatus
-	, p.type_animal AS typeAnimal
+	, p.animal AS typeAnimal
 	,s.id AS shelterId
 	,s.`name` AS shelterName
 	, c.phone AS contactPhone
@@ -121,6 +121,82 @@ SELECT p.id AS petId
 		LEFT JOIN descriptions AS d ON (p.description_id=d.id)  
 		left JOIN `options_pets` AS op ON (p.id=op.pet_id) LEFT JOIN `options` AS o ON (o.id=op.option_id) 
 	</select>
+	
+	
+		<select id="findAllPetsByShelterId" resultMap="pet">
+SELECT p.id AS petId
+	, p.`name` AS petName
+	, p.age AS petAge
+	,p.mix AS petMix
+	,p.last_update AS petLastUpdate
+	,p.size AS petSize
+	,p.sex AS petSex
+	,d.description AS petDescription
+	,p.`status` AS petStatus
+	, p.animal AS typeAnimal
+	,s.id AS shelterId
+	,s.`name` AS shelterName
+	, c.phone AS contactPhone
+	,c.state AS state
+	,c.address1 AS address1
+	,c.email AS email
+	,c.city AS city
+	,c.zip AS zip
+	, d.description AS description
+	,ph.id AS photoId
+	,ph.size AS photoSize
+	,ph.url AS photoUrl
+	,o.id AS optionId
+	, o.`option` 
+	,b.breed AS breed
+	,b.id AS breedId from pets AS p 
+		left JOIN shelters AS s ON (p.shelter_id=s.id) 
+		LEFT JOIN pets_breeds AS pb ON (pb.pet_id=p.id) 	
+		LEFT JOIN breeds AS b ON(pb.breed_id=b.id)		
+		left JOIN contacts AS c ON (s.contact_id = c.id) 
+		LEFT JOIN photos AS ph ON (ph.pet_id=p.id) 
+		LEFT JOIN descriptions AS d ON (p.description_id=d.id)  
+		left JOIN `options_pets` AS op ON (p.id=op.pet_id) LEFT JOIN `options` AS o ON (o.id=op.option_id)  where s.id=#{shelterId}
+	</select>
+	
+	
+	
+	<select id="findOneRandomPet" resultMap="pet">
+SELECT p.id AS petId
+	, p.`name` AS petName
+	, p.age AS petAge
+	,p.mix AS petMix
+	,p.last_update AS petLastUpdate
+	,p.size AS petSize
+	,p.sex AS petSex
+	,d.description AS petDescription
+	,p.`status` AS petStatus
+	, p.animal AS typeAnimal
+	,s.id AS shelterId
+	,s.`name` AS shelterName
+	, c.phone AS contactPhone
+	,c.state AS state
+	,c.address1 AS address1
+	,c.email AS email
+	,c.city AS city
+	,c.zip AS zip
+	, d.description AS description
+	,ph.id AS photoId
+	,ph.size AS photoSize
+	,ph.url AS photoUrl
+	,o.id AS optionId
+	, o.`option` 
+	,b.breed AS breed
+	,b.id AS breedId from pets AS p 
+		left JOIN shelters AS s ON (p.shelter_id=s.id) 
+		LEFT JOIN pets_breeds AS pb ON (pb.pet_id=p.id) 	
+		LEFT JOIN breeds AS b ON(pb.breed_id=b.id)		
+		left JOIN contacts AS c ON (s.contact_id = c.id) 
+		LEFT JOIN photos AS ph ON (ph.pet_id=p.id) 
+		LEFT JOIN descriptions AS d ON (p.description_id=d.id)  
+		left JOIN `options_pets` AS op ON (p.id=op.pet_id) LEFT JOIN `options` AS o ON (o.id=op.option_id) order by rand() limit 1;
+	</select>
+	
 </mapper>
 
 

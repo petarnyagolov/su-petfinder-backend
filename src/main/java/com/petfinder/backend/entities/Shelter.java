@@ -1,9 +1,19 @@
 package com.petfinder.backend.entities;
 
+import com.petfinder.backend.models.Contact;
+
 public class Shelter {
 	private Long id;
 	private String name;
-	private String location;
+	private Contact contact;
+
+	public Contact getContact() {
+		return contact;
+	}
+
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
 
 	public Long getId() {
 		return id;
@@ -19,14 +29,6 @@ public class Shelter {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
 	}
 
 }

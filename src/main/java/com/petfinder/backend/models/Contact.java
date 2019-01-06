@@ -1,6 +1,7 @@
 package com.petfinder.backend.models;
 
 public class Contact {
+	private Long id;
 	private String phone;
 	private String state;
 	private String address2;
@@ -10,6 +11,13 @@ public class Contact {
 	private String zip;
 	private String fax;
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getPhone() {
 		return phone;

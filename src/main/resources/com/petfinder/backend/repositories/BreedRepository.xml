@@ -5,23 +5,17 @@
 
 
 
-	<!-- <select id="findOneWebinarHashByEmailAndWebinar" resultType="String">
-		select uh.user_hash from admins_webinars_hashes as awh inner join
-		user_hashes as uh on(uh.id=awh.user_hash_id) inner join admins as a on
-		(a.id=awh.admin_id) where a.email= #{email} and awh.webinar_id=
-		#{webinarId}
-	</select>
-	
-	<resultMap type="Admin" id="Admin">
+
+	<resultMap type="Breed" id="breed">
 		<id column="id" property="id" />
-		<result column="name" property="name" />
-		<result column="family" property="family" />
-		<result column="email" property="email" />
+		<result column="breed" property="breed" />
 	</resultMap>
 	
-	<select id="findOneByEmail" resultMap="Admin">
-		select  * from admins as a where a.email=  #{email} 
-	</select> -->
+	<select id="findAllBreedsByAnimal" resultMap="breed">
+		SELECT * FROM breeds  AS b where b.type =#{animal}
+	</select> 
+	
+	
 </mapper>
 
 
