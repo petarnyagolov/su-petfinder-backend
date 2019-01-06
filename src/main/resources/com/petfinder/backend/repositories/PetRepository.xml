@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.petfinder.backend.repositories.PetRepository">
+
+
+
+
+	<!-- <select id="findOneWebinarHashByEmailAndWebinar" resultType="String"> 
+		select uh.user_hash from admins_webinars_hashes as awh inner join user_hashes 
+		as uh on(uh.id=awh.user_hash_id) inner join admins as a on (a.id=awh.admin_id) 
+		where a.email= #{email} and awh.webinar_id= #{webinarId} </select> -->
+
+	<resultMap type="PetDto" id="pet">
+		<id column="petId" property="id" />
+		<result column="petAge" property="age" />
+		<result column="petName" property="name" />
+		<result column="petSize" property="size" />
+		<result column="petDecription" property="description" />
+		<result column="petLastUpdate" property="lastUpdate" />
+		<result column="mix" property="mix" />
+		<result column="sex" property="sex" />
+		<result column="petStatus" property="status" />
+		<result column="shelterId" property="shelterId" />
+		<result column="typeAnimal" property="animal" />
+		<association property="contact" javaType="Contact">
+			<id column="contact_id" property="id" />
+			<result column="phone" property="phone" />
+			<result column="state" property="state" />
+			<result column="address1" property="address1" />
+			<result column="email" property="email" />
+			<result column="city" property="city" />
+			<result column="zip" property="zip" />
+		</association>
+		<association property="shelter" javaType="Shelter">
+			<id column="shelterId" property="id" />
+			<result column="shelterName" property="name" />
+		</association>
+		<collection property="breeds" ofType="Breed">
+			<id column="breedId" property="id" />
+			<result column="breed" property="breed" />
+		</collection>
+		<collection property="photos" ofType="Photo">
+			<id column="photoId" property="id" />
+			<result column="photoSize" property="size" />
+			<result column="photoUrl" property="url" />
+		</collection>
+		<collection property="options" ofType="Option">
+			<id column="id" property="id" />
+			<result column="option" property="option" />
+		</collection>
+	</resultMap>
+
+	<select id="findPetById" resultMap="pet">
+SELECT p.id AS petId
+	, p.`name` AS petName
+	, p.age AS petAge
+	,p.mix AS petMix
+	,p.last_update AS petLastUpdate
+	,p.size AS petSize
+	,p.sex AS petSex
+	,d.description AS petDescription
+	,p.`status` AS petStatus
+	, p.type_animal AS typeAnimal
+	,s.id AS shelterId
+	,s.`name` AS shelterName
+	, c.phone AS contactPhone
+	,c.state AS state
+	,c.address1 AS address1
+	,c.email AS email
+	,c.city AS city
+	,c.zip AS zip
+	, d.description AS description
+	,ph.id AS photoId
+	,ph.size AS photoSize
+	,ph.url AS photoUrl
+	,o.id AS optionId
+	, o.`option` 
+	,b.breed AS breed
+	,b.id AS breedId from pets AS p 
+		left JOIN shelters AS s ON (p.shelter_id=s.id) 
+		LEFT JOIN pets_breeds AS pb ON (pb.pet_id=p.id) 	
+		LEFT JOIN breeds AS b ON(pb.breed_id=b.id)
+		left JOIN contacts AS c ON (s.contact_id = c.id) 
+		LEFT JOIN photos AS ph ON (ph.pet_id=p.id) 
+		LEFT JOIN descriptions AS d ON (p.description_id=d.id)  
+		left JOIN `options_pets` AS op ON (p.id=op.pet_id) LEFT JOIN `options` AS o ON (o.id=op.option_id)   where p.id= #{id}
+	</select>
+	<select id="findAllPets" resultMap="pet">
+SELECT p.id AS petId
+	, p.`name` AS petName
+	, p.age AS petAge
+	,p.mix AS petMix
+	,p.last_update AS petLastUpdate
+	,p.size AS petSize
+	,p.sex AS petSex
+	,d.description AS petDescription
+	,p.`status` AS petStatus
+	, p.type_animal AS typeAnimal
+	,s.id AS shelterId
+	,s.`name` AS shelterName
+	, c.phone AS contactPhone
+	,c.state AS state
+	,c.address1 AS address1
+	,c.email AS email
+	,c.city AS city
+	,c.zip AS zip
+	, d.description AS description
+	,ph.id AS photoId
+	,ph.size AS photoSize
+	,ph.url AS photoUrl
+	,o.id AS optionId
+	, o.`option` 
+	,b.breed AS breed
+	,b.id AS breedId from pets AS p 
+		left JOIN shelters AS s ON (p.shelter_id=s.id) 
+		LEFT JOIN pets_breeds AS pb ON (pb.pet_id=p.id) 	
+		LEFT JOIN breeds AS b ON(pb.breed_id=b.id)		
+		left JOIN contacts AS c ON (s.contact_id = c.id) 
+		LEFT JOIN photos AS ph ON (ph.pet_id=p.id) 
+		LEFT JOIN descriptions AS d ON (p.description_id=d.id)  
+		left JOIN `options_pets` AS op ON (p.id=op.pet_id) LEFT JOIN `options` AS o ON (o.id=op.option_id) 
+	</select>
+</mapper>
+
+

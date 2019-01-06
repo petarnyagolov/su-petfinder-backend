@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.petfinder.backend.repositories.ShelterRepository">
+
+
+
+
+	<!-- <select id="findOneWebinarHashByEmailAndWebinar" resultType="String">
+		select uh.user_hash from admins_webinars_hashes as awh inner join
+		user_hashes as uh on(uh.id=awh.user_hash_id) inner join admins as a on
+		(a.id=awh.admin_id) where a.email= #{email} and awh.webinar_id=
+		#{webinarId}
+	</select>
+	
+	<resultMap type="Admin" id="Admin">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="family" property="family" />
+		<result column="email" property="email" />
+	</resultMap>
+	
+	<select id="findOneByEmail" resultMap="Admin">
+		select  * from admins as a where a.email=  #{email} 
+	</select> -->
+</mapper>
+
+

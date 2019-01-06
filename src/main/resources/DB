@@ -2,31 +2,47 @@ CREATE DATABASE petfinder  CHARACTER SET utf8 COLLATE UTF8_GENERAL_CI;
 USE petfinder;
 CREATE TABLE IF NOT EXISTS `breeds` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `key` varchar(70) NOT NULL,
-   `format` ENUM('xml','json') DEFAULT 'xml',
-	`animal` VARCHAR(70) NOT NULL ,
+	`breed` VARCHAR(70) NOT NULL ,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=UTF8;
 
 CREATE TABLE IF NOT EXISTS `shelters` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `key` varchar(70) NOT NULL,`name` VARCHAR(70) NOT NULL,
-   `format` ENUM('xml','json') DEFAULT 'xml',
-	`location` VARCHAR(70) NOT NULL ,
+`name` VARCHAR(70) NOT NULL,
+	`contact_id` bigint NOT NULL ,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `pets` (
+ CREATE TABLE IF NOT EXISTS `pets` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `key` varchar(70) NOT NULL,
-  `pic` VARCHAR(70) DEFAULT NULL,
   `name` VARCHAR(70) DEFAULT NULL,
-  `sex` VARCHAR(1) NOT NULL,
-  `shelter_id` bigint(20) NOT NULL,
-  `breed_id` BIGINT(20) DEFAULT NULL,
-  `type_animal` ENUM('barnyard','bird','car','dog','horse','reptile','smallfurry') DEFAULT NULL,
-   `format` ENUM('xml','json') DEFAULT 'xml', 
+   `age` VARCHAR(70) DEFAULT NULL,
+   `mix` BOOL  DEFAULT false,
+     `last_update` datetime  DEFAULT NULL,
+    `size` VARCHAR(70) DEFAULT NULL,
+  `description_id` bigint(20) DEFAULT NULL,
+  `sex` VARCHAR(1) default NULL,
+  `shelter_id` bigint(20) default NULL,status varchar(70) default null,
+  `type_animal` ENUM('BARNYARD','BIRD','CAT','DOG','HORSE','REPTILE','SMALLFURRY') DEFAULT NULL,
 	FOREIGN KEY (breed_id) REFERENCES breeds(id),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=UTF8;
 
+CREATE TABLE IF NOT EXISTS `contacts` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `phone` VARCHAR(70) DEFAULT NULL,
+  `state` VARCHAR(70) DEFAULT NULL,
+  `address1` VARCHAR(70) DEFAULT NULL,
+  `email` VARCHAR(70) DEFAULT NULL,
+  `city` VARCHAR(70) DEFAULT NULL,
+  `zip` VARCHAR(20) DEFAULT NULL,	
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=UTF8;
+
+create TABLE `pets_breeds`(
+id bigint primary key  auto_increment,
+breed_id bigint,
+pet_id BIGINT );
+ CREATE TABLE `options` ( `id` bigint(20) NOT NULL AUTO_INCREMENT, `option` VARCHAR(20),PRIMARY KEY (`id`));
+ CREATE TABLE 	`options_pets`(id BIGINT NOT NULL AUTO_INCREMENT , option_id bigint,pet_id BIGINT,FOREIGN KEY (option_id) REFERENCES `options`(id),FOREIGN KEY (pet_id) REFERENCES pets(id),PRIMARY KEY (`id`));
+CREATE TABLE `descriptions` ( `id` bigint(20) NOT NULL AUTO_INCREMENT, `description` text,PRIMARY KEY (`id`));

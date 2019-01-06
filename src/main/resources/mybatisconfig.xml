@@ -14,21 +14,9 @@
 		<package name="com.petfinder.backend" />
 	</typeAliases>
 
-	<!-- <typeHandlers>
-		<typeHandler handler="com.example.chatbot.config.CharacteristicTypeHandler"/>
-	</typeHandlers>
- -->
 	<mappers>
-	<!-- 	<mapper resource="com/petfinder/repositories/MessageRepository.xml"/>
-		<mapper resource="com/petfinder/repositories/EventRepository.xml"/>
-		<mapper resource="com/petfinder/repositories/UserEmployeeRepository.xml"/>
-		<mapper resource="com/petfinder/repositories/ChatUserRepository.xml"/>
-		<mapper resource="com/petfinder/repositories/ChatUserContactRepository.xml"/>
-
-		<mapper resource="com/petfinder/repositories/ProductCategoryRepository.xml"/>
-		<mapper resource="com/petfinder/repositories/ProductCharacteristicRepository.xml"/>
-		<mapper resource="com/petfinder/repositories/ProductRepository.xml"/>
-		<mapper resource="com/petfinder/repositories/WitTokenRepository.xml"/>
-		<mapper resource="com/petfinder/repositories/BotConversationStateRepository.xml"/> -->
+	 	<mapper resource="com/petfinder/backend/repositories/BreedRepository.xml"/>
+		<mapper resource="com/petfinder/backend/repositories/PetRepository.xml"/>
+		<mapper resource="com/petfinder/backend/repositories/ShelterRepository.xml"/>
 	</mappers>
 </configuration>
